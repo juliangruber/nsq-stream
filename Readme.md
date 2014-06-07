@@ -37,7 +37,7 @@ publisher.write({ foo: 'bar' });
 
   Create a writable stream from `writer` to `topic`.
 
-### Backpressure
+## Backpressure
 
   Backpressure is created by not `.finish()`ing messages until they have
   been consumed.
