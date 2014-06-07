@@ -1,7 +1,7 @@
 
 # nsq-stream
 
-  Streaming interface for nsq.
+  Streaming interface for [nsq.js](https://github.com/segmentio/nsq.js).
 
 ## Example
 
