@@ -1,0 +1,13 @@
+{
+  "name": "nsq-stream",
+  "version": "0.0.0",
+  "repository": "juliangruber/nsq-stream",
+  "license": "MIT",
+  "description": "Streaming interface for nsq",
+  "dependencies": {
+    "readable-stream": "^1.0.27-1"
+  },
+  "scripts": {
+    "test": "make test"
+  }
+}
