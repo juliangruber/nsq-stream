@@ -50,8 +50,8 @@ exports.createWriteStream = function(writer, topic){
 
   var stream = Stream.Writable({ objectMode: true });
 
-  stream._write = function(chunk, enc, done){
-    writer.publish(topic, JSON.stringify(chunk), done);
+  stream._write = function(obj, enc, done){
+    writer.publish(topic, obj, done);
   };
 
   return stream;

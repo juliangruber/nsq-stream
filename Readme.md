@@ -37,6 +37,8 @@ publisher.write({ foo: 'bar' });
 
   Create a writable stream from `writer` to `topic`.
 
+  Write any `JSON.stringify()`-able JavaScript object to it.
+
 ## Backpressure
 
   Backpressure is created by not `.finish()`ing messages until they have
