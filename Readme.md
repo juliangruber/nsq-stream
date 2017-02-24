@@ -23,7 +23,7 @@ publisher.write({ foo: 'bar' });
 
 ## API
 
-### createReadStream(reader[, type])
+### createReadStream(reader[, type, opts])
 
   Create a readable stream from `reader`.
 
@@ -32,6 +32,13 @@ publisher.write({ foo: 'bar' });
   - `json`: `msg.json()` (default)
   - `buffer`: `msg.body`
   - `message`: `msg`
+
+  `opts` supports:
+
+  - `highWaterMark`: Selecting a `highWaterMark` of `0` will ensure no jobs
+  get buffered and marked as finished before the writeStream consuming the
+  messages accepts them. This keeps backpressure on nsqd side but will
+  negatively impact performance in high throughput cases.
 
 ### createWriteStream(writer, topic)
 
@@ -42,7 +49,8 @@ publisher.write({ foo: 'bar' });
 ## Backpressure
 
   Backpressure is created by not `.finish()`ing messages until they have
-  been consumed.
+  been consumed. *NOTE* Some messages will be buffered in memory and marked as
+  finished if `highWaterMark` is not set to 0.
 
 ## License
 
