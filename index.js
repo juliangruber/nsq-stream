@@ -22,7 +22,7 @@ exports.createReadStream = function(reader, type){
   }
 
   var objectMode = json || message;
-  var stream = Stream.Readable({ objectMode: objectMode });
+  var stream = Stream.Readable({ objectMode: objectMode, highWaterMark: 0 });
 
   stream._read = function(){
     next(function(msg){
