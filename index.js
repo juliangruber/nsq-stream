@@ -2,8 +2,15 @@ var Stream = require('readable-stream');
 var inherits = require('util').inherits;
 var assert = require('assert');
 
-exports.createReadStream = function(reader, type){
+exports.createReadStream = function(reader, type, opts){
   assert(reader, 'reader required');
+  if (typeof type !== 'string' && !opts) {
+    opts = type;
+    type = null;
+  }
+
+  opts = opts || {};
+  type = type || opts.type;
 
   var json = !type || 'json' == type;
   var buffer = 'buffer' == type;
@@ -22,7 +29,10 @@ exports.createReadStream = function(reader, type){
   }
 
   var objectMode = json || message;
-  var stream = Stream.Readable({ objectMode: objectMode });
+  var stream = Stream.Readable({
+    objectMode: objectMode,
+    highWaterMark: options.highWaterMark
+  });
 
   stream._read = function(){
     next(function(msg){
