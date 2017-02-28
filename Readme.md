@@ -39,7 +39,7 @@ publisher.write({ foo: 'bar' });
   get buffered and marked as finished before the writeStream consuming the
   messages accepts them. This keeps backpressure on nsqd side but will
   negatively impact performance in high throughput cases.
-  - `type`: Same as Type above.
+  - `type`: Fallback for the `type` argument
 
 ### createWriteStream(writer, topic)
 
