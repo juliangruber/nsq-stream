@@ -5,7 +5,7 @@
   "license": "MIT",
   "description": "Streaming interface for nsq",
   "dependencies": {
-    "readable-stream": "^2.2.2"
+    "readable-stream": "^2.2.5"
   },
   "scripts": {
     "test": "make test"
