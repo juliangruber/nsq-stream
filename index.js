@@ -1,8 +1,7 @@
 var Stream = require('readable-stream');
-var inherits = require('util').inherits;
 var assert = require('assert');
 
-exports.createReadStream = function(reader, type, opts){
+exports.createReadStream = function (reader, type, opts) {
   assert(reader, 'reader required');
   if (typeof type !== 'string' && !opts) {
     opts = type;
@@ -12,18 +11,18 @@ exports.createReadStream = function(reader, type, opts){
   opts = opts || {};
   type = type || opts.type;
 
-  var json = !type || 'json' == type;
-  var buffer = 'buffer' == type;
-  var message = 'message' == type;
+  var json = !type || type === 'json';
+  var buffer = type === 'buffer';
+  var message = type === 'message';
 
   var buf = [];
-  reader.on('message', function(msg){
+  reader.on('message', function (msg) {
     buf.push(msg);
   });
 
-  function next(fn){
+  function next (fn) {
     if (buf.length) return fn(buf.shift());
-    reader.once('message', function(){
+    reader.once('message', function () {
       next(fn);
     });
   }
@@ -34,18 +33,18 @@ exports.createReadStream = function(reader, type, opts){
     highWaterMark: opts.highWaterMark
   });
 
-  stream._read = function(){
-    next(function(msg){
+  stream._read = function () {
+    next(function (msg) {
       msg.finish();
       var out = json ? msg.json()
         : buffer ? msg.body
-        : msg;
+          : msg;
       stream.push(out);
     });
   };
 
-  stream.on('end', function(){
-    buf.forEach(function(msg){
+  stream.on('end', function () {
+    buf.forEach(function (msg) {
       msg.finish();
     });
     buf = [];
@@ -54,16 +53,15 @@ exports.createReadStream = function(reader, type, opts){
   return stream;
 };
 
-exports.createWriteStream = function(writer, topic){
+exports.createWriteStream = function (writer, topic) {
   assert(writer, 'writer required');
   assert(topic, 'topic required');
 
   var stream = Stream.Writable({ objectMode: true });
 
-  stream._write = function(obj, enc, done){
+  stream._write = function (obj, enc, done) {
     writer.publish(topic, obj, done);
   };
 
   return stream;
 };
-
