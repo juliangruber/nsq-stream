@@ -1,6 +1,6 @@
 {
   "name": "nsq-stream",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "repository": "juliangruber/nsq-stream",
   "license": "MIT",
   "description": "Streaming interface for nsq",
