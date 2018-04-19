@@ -31,7 +31,7 @@ exports.createReadStream = function(reader, type, opts){
   var objectMode = json || message;
   var stream = Stream.Readable({
     objectMode: objectMode,
-    highWaterMark: options.highWaterMark
+    highWaterMark: opts.highWaterMark
   });
 
   stream._read = function(){
